@@ -1,0 +1,20 @@
+<resources>
+    <string name="app_name">Sedir Ads</string>
+    <string name="app_start_url">https://sedirads.com/</string>
+    <string name="app_post_login_url">https://sedirads.com/</string>
+
+    <string name="google_web_client_id">262552582759-db1fuh11o4gpvqjl0p053mo0tfd4bfi6.apps.googleusercontent.com</string>
+    <string name="google_native_login_url">https://sedirads.com/?gotRedirect=1&amp;native_app=1</string>
+
+    <string name="google_sign_in_started">جارٍ فتح اختيار الحساب</string>
+    <string name="google_sign_in_no_account">لم يتم العثور على حساب Google مناسب</string>
+    <string name="google_sign_in_failed">تعذر إكمال تسجيل الدخول بجوجل</string>
+    <string name="google_sign_in_success">تم تسجيل الدخول بنجاح</string>
+
+    <string name="notification_denied_message">تم رفض إذن الإشعارات</string>
+    <string name="no_app_found">لا يوجد تطبيق مناسب لفتح الرابط</string>
+    <string name="connection_error">حدث خطأ في الاتصال</string>
+    <string name="no_file_picker">لا يوجد منتقي ملفات متاح</string>
+    <string name="download_description">جارٍ تنزيل الملف…</string>
+    <string name="download_started">بدأ تنزيل الملف</string>
+</resources>
