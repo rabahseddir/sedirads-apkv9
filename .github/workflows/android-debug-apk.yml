@@ -40,6 +40,14 @@ jobs:
       - name: Build debug APK
         run: gradle --no-daemon assembleDebug
 
+      - name: Show SHA1
+        run: |
+          keytool -list -v \
+            -alias androiddebugkey \
+            -keystore ~/.android/debug.keystore \
+            -storepass android \
+            -keypass android | grep "SHA1:"
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
