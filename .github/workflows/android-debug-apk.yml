@@ -44,7 +44,11 @@ jobs:
         run: |
           APK_FILE=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
           echo "APK file: $APK_FILE"
-          keytool -printcert -jarfile "$APK_FILE" | grep "SHA1:"
+
+          APKSIGNER=$(find "$ANDROID_HOME/build-tools" -name apksigner | sort | tail -n 1)
+          echo "Using apksigner: $APKSIGNER"
+
+          "$APKSIGNER" verify --print-certs "$APK_FILE"
 
       - name: Upload APK
         if: always()
