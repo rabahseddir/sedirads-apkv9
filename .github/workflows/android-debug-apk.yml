@@ -37,19 +37,18 @@ jobs:
             "platforms;android-35" \
             "build-tools;35.0.0"
 
-      - name: Make gradlew executable
-        run: chmod +x ./gradlew
-
       - name: Build debug APK
-        run: ./gradlew --no-daemon assembleDebug
+        run: gradle --no-daemon assembleDebug
 
       - name: Show SHA1 from APK
         run: |
-          keytool -printcert -jarfile app/build/outputs/apk/debug/app-debug.apk | grep "SHA1:"
+          APK_FILE=$(find app/build/outputs/apk/debug -name "*.apk" | head -n 1)
+          echo "APK file: $APK_FILE"
+          keytool -printcert -jarfile "$APK_FILE" | grep "SHA1:"
 
       - name: Upload APK
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: sedirads-debug-apk
-          path: app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/*.apk
