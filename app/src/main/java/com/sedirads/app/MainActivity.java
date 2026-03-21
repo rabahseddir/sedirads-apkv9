@@ -561,32 +561,6 @@ public class MainActivity extends AppCompatActivity {
         return scheme.equals("about") || scheme.equals("data") || scheme.equals("blob");
     }
 
-    private boolean shouldStartNativeSocialLoginOutside(@Nullable Uri uri) {
-        if (uri == null) {
-            return false;
-        }
-
-        String scheme = uri.getScheme() == null ? "" : uri.getScheme().toLowerCase(Locale.US);
-        if (!scheme.equals("http") && !scheme.equals("https")) {
-            return false;
-        }
-
-        String host = uri.getHost() == null ? "" : uri.getHost().toLowerCase(Locale.US);
-        if (!(appHosts.contains(host) || host.endsWith(".sedirads.com"))) {
-            return false;
-        }
-
-        String page = valueOrEmpty(uri.getQueryParameter("page"));
-        String nativeApp = valueOrEmpty(uri.getQueryParameter("native_app"));
-        String appReturn = valueOrEmpty(uri.getQueryParameter("app_return"));
-        String fblStart = valueOrEmpty(uri.getQueryParameter("fblStart"));
-
-        return "custom".equalsIgnoreCase(page)
-                && "1".equals(nativeApp)
-                && "1".equals(fblStart)
-                && appReturn.toLowerCase(Locale.US).startsWith("sedirads://auth-return");
-    }
-
     private final class AndroidAuthBridge {
         @JavascriptInterface
         public void signInWithGoogle() {
@@ -615,9 +589,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
             Uri uri = request.getUrl();
-            if (shouldStartNativeSocialLoginOutside(uri)) {
-                return openExternalIntent(uri);
-            }
             if (shouldOpenInsideApp(uri)) {
                 return false;
             }
@@ -627,9 +598,6 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public boolean shouldOverrideUrlLoading(WebView view, String url) {
             Uri uri = Uri.parse(url);
-            if (shouldStartNativeSocialLoginOutside(uri)) {
-                return openExternalIntent(uri);
-            }
             if (shouldOpenInsideApp(uri)) {
                 return false;
             }
