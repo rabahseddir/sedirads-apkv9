@@ -568,6 +568,20 @@ public class MainActivity extends AppCompatActivity {
         }
 
         @JavascriptInterface
+        public void openExternalUrl(String url) {
+            runOnUiThread(() -> {
+                if (url == null || url.trim().isEmpty()) {
+                    return;
+                }
+
+                try {
+                    openExternalIntent(Uri.parse(url));
+                } catch (Exception ignored) {
+                }
+            });
+        }
+
+        @JavascriptInterface
         public boolean isInApp() {
             return true;
         }
